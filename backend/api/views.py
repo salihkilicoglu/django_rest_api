@@ -16,3 +16,5 @@ def api_home(request, *args, **kwargs):
         #data = model_to_dict(instance, fields=['id', 'title', 'price','sale_price'])
         data = ProductSerializer(instance).data
     return Response(data)
+
+#test 
