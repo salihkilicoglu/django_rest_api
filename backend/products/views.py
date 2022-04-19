@@ -75,7 +75,7 @@ product_destroy_view = ProductDestroyAPIView.as_view()
 # product_list_view = ProductListAPIView.as_view()
 
 
-# Mixin Views
+# mixin views not gonna use
 class ProductMixinView(
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
@@ -101,7 +101,7 @@ class ProductMixinView(
         title = serializer.validated_data.get('title')
         content = serializer.validated_data.get('content') or None
         if content is None:
-            content = "this is mixin view doing it"
+            content = "this is mixin view"
         serializer.save(content=content)
 
 product_mixin_view = ProductMixinView.as_view()
