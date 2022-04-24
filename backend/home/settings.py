@@ -10,7 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
-from distutils.log import debug
+import datetime
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -42,8 +42,9 @@ INSTALLED_APPS = [
     'algoliasearch_django',
     # third party packages
     'rest_framework',
-    'rest_framework.authtoken',   
-    
+    'rest_framework.authtoken',
+    'rest_framework_simplejwt',
+
     # internal apps
     'api',
     'articles',
@@ -138,7 +139,8 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
-        "api.authentication.TokenAuthentication"
+        "api.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": [
         "rest_framework.permissions.IsAuthenticatedOrReadOnly"
@@ -152,4 +154,12 @@ ALGOLIA = {
     'APPLICATION_ID': '6JH765D5T7',
     'API_KEY': 'c0487334ef3033606c82901d80451f42',
     'INDEX_PREFIX':  'salih'
+}
+
+
+
+SIMPLE_JWT = {
+    "AUTH_HEADER_TYPES": ["Bearer"],
+    "ACCESS_TOKEN_LIFETIME": datetime.timedelta(seconds=30),
+    "REFRESH_TOKEN_LIFETIME": datetime.timedelta(minutes=1),
 }
