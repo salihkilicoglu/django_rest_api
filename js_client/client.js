@@ -150,3 +150,50 @@ function getProductList(){
 }
 
 validateJWTToken()
+
+
+
+const searchClient = algoliasearch('6JH765D5T7', 'fd5d6c474735afceb687ce62a3a19699');
+  
+const search = instantsearch({
+    indexName: 'salih_Product',
+    searchClient,
+});
+
+search.addWidgets([
+    instantsearch.widgets.searchBox({
+      container: '#searchbox',
+    }),
+  
+      instantsearch.widgets.clearRefinements({
+      container: "#clear-refinements"
+      }),
+  
+  
+    instantsearch.widgets.refinementList({
+        container: "#user-list",
+        attribute: 'user'
+    }),
+    instantsearch.widgets.refinementList({
+      container: "#public-list",
+      attribute: 'public'
+  }),
+  
+  
+    instantsearch.widgets.hits({
+      container: '#hits',
+      templates: {
+          item: `
+              <div>
+                  <div>{{#helpers.highlight}}{ "attribute": "title" }{{/helpers.highlight}}</div>
+                  <div>{{#helpers.highlight}}{ "attribute": "body" }{{/helpers.highlight}}</div>
+                  
+                  <p>{{ user }}</p><p>\${{ price }}
+              
+              
+              </div>`
+      }
+    })
+  ]);
+  
+  search.start();
